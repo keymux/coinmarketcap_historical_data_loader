@@ -1,0 +1,38 @@
+{
+  "name": "coinmarketcap_historical_data_loader",
+  "version": "0.1.0",
+  "description": "A tool to import coinmarketcap historical data into a database",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "report:_all": "scripts/report/_all.sh",
+    "report:aggregate": "scripts/report/aggregate.sh",
+    "report:coverage": "scripts/report/coverage.sh",
+    "report:integration": "scripts/report/integration.sh",
+    "report:unit": "scripts/report/unit.sh",
+    "submit:comment": "scripts/submit/comment.sh",
+    "test:coverage": "scripts/test/coverage.sh",
+    "test:integration": "scripts/test/integration.sh",
+    "test:unit": "scripts/test/unit.sh"
+  },
+  "reports": [
+    "unit",
+    "coverage",
+    "integration"
+  ],
+  "devDependencies": {
+    "@keymux/dev_utils": "^0.1.4",
+    "@keymux/github_cli": "^0.1.7",
+    "@keymux/mochawesome_to_markdown": "^0.1.0",
+    "@keymux/promisr": "^0.1.1",
+    "chai": "^4.1.2",
+    "make-promises-safe": "^1.1.0",
+    "markdown-preview": "^0.4.3",
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.0.2",
+    "nodemon": "^1.18.2",
+    "nyc": "^12.0.2",
+    "sinon": "^6.1.0",
+    "winston": "^3.0.0"
+  }
+}
