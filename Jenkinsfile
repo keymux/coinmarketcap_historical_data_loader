@@ -71,7 +71,7 @@ node("docker") {
             "-v ${env.WORKSPACE}:${env.WORKSPACE}:ro",
             "${dockerArgs}",
             "--rm",
-            "-p ${wiremockPort}:8080",
+            "--net=host",
             "${dockerImageAndTag}",
             "${testCommand}",
           ].join(" ")
