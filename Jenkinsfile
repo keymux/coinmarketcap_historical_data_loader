@@ -62,7 +62,7 @@ node("docker") {
 
     nvm("scripts/dockerUp.sh")
 
-    def wiremockPort = sh(script: "scripts/get_wiremock_port.sh", returnStdout: true)
+    def wiremockPort = sh(script: "scripts/get_wiremock_port.sh", returnStdout: true).trim()
 
     def dockerRunTest = { stageName, testCommand ->
       stage(stageName) {
