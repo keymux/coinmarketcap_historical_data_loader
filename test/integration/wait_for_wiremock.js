@@ -5,7 +5,7 @@ before(function() {
   const timeout = 5000;
 
   // add 5% so the below function will finish first
-  this.timeout(timeout * 0.05);
+  this.timeout(timeout * 1.05);
 
   return new Promise((resolve, reject) => {
     const retry = () => {
