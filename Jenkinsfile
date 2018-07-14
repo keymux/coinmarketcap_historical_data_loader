@@ -56,6 +56,7 @@ node("docker") {
     stage("Dependencies") {
       nvm("yarn install --frozen-lockfile --prefer-offline")
       nvm("mkdir -p reports")
+      nvm("scripts/get_and_unpack_wiremock_tgz.sh")
     }
 
     def dockerRunTest = { stageName, testCommand ->

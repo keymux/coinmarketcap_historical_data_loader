@@ -12,6 +12,10 @@ REPORTS_DIR="/tmp/reports"
 
 . "${SCRIPTS_DIR}/lib.sh"
 
+if [ ! -d "test/wiremock/__files" ]; then
+  "${SCRIPTS_DIR}/get_and_unpack_wiremock_tgz.sh"
+fi
+
 dockerComposeUp
 
 yarn mocha \
