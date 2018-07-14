@@ -37,6 +37,7 @@ node("docker") {
   ].join(" ");
 
   def dockerArgs = [
+    "--net=host",
     "-v ${yarnCache}:/.cache/yarn:rw",
     "-w ${env.WORKSPACE}",
   ].join(" ")
@@ -71,7 +72,6 @@ node("docker") {
             "-v ${env.WORKSPACE}:${env.WORKSPACE}:ro",
             "${dockerArgs}",
             "--rm",
-            "--net=host",
             "-e WIREMOCK_PORT=${wiremockPort}",
             "${dockerImageAndTag}",
             "${testCommand}",
