@@ -26,6 +26,7 @@ node("docker") {
   def dockerInDockerVolsArgs = [
     "/var/run/docker.sock",
     "/usr/bin/docker",
+    "/usr/local/bin/docker-compose",
     "/usr/lib/x86_64-linux-gnu/libltdl.so.7",
   ].collect { "-v ${it}:${it}:rw" }.join(" ")
 
