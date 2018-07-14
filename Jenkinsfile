@@ -72,6 +72,7 @@ node("docker") {
             "${dockerArgs}",
             "--rm",
             "--net=host",
+            "-e WIREMOCK_PORT=${wiremockPort}",
             "${dockerImageAndTag}",
             "${testCommand}",
           ].join(" ")

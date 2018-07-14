@@ -23,5 +23,8 @@ export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
 yarn mocha \
   --reporter-options reportDir="${REPORTS_DIR}/integration" \
   "${INTEGRATION_DIR}"
+CODE=$?
 
 [ -f /.dockerenv ] || dockerComposeDown
+
+exit ${CODE}

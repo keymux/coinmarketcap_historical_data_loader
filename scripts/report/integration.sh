@@ -31,5 +31,8 @@ yarn mocha \
 yarn -s mochawesome_to_markdown \
   --mochawesome "${MOCHAWESOME_JSON}" \
   | tee -a ${MARKDOWN_FILE}
+CODE=$?
 
 [ -f /.dockerenv ] || dockerComposeDown
+
+exit ${CODE}
