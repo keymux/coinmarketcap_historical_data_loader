@@ -6,4 +6,4 @@ ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
 
 . "${SCRIPTS_DIR}/lib.sh"
 
-createWiremockZip
+createWiremockTgz

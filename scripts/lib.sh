@@ -4,8 +4,8 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
 
-WIREMOCK_ZIP_URI="https://nc.0ti.me/index.php/s/9xN24GjS9dkCSds/download"
-WIREMOCK_ZIP_FILE="wiremock.zip"
+WIREMOCK_TGZ_URI="https://nc.0ti.me/index.php/s/n7RN8j8ZRmZjZWJ/download"
+WIREMOCK_TGZ_FILE="wiremock.tgz"
 
 whichOrExit() {
   if ! which $1 > /dev/null 2>&1; then
@@ -109,20 +109,20 @@ open() {
   esac
 }
 
-createWiremockZip() {
-  zip -x "*.swp" -r "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" "test/wiremock"
+createWiremockTgz() {
+  tar --exclude="*.swp" -czf "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" "test/wiremock"
 }
 
 getWiremockMappingsAndFiles() {
 
-  if ! which zip; then
-    echo -ne "You must install \`zip\`\n" >&2
+  if ! which tar; then
+    echo -ne "You must install \`tar\`\n" >&2
   elif which curl; then
-    curl -o "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" "${WIREMOCK_ZIP_URI}"
+    curl -o "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" "${WIREMOCK_TGZ_URI}"
 
     return $?
   elif which wget; then
-    wget -O "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" "${WIREMOCK_ZIP_URI}"
+    wget -O "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" "${WIREMOCK_TGZ_URI}"
 
     return $?
   else
@@ -133,14 +133,14 @@ getWiremockMappingsAndFiles() {
 }
 
 unpackWiremockMappingsAndFiles() {
-  if ! which unzip; then
-    echo -ne "You must install \`unzip\`\n" >&2
+  if ! which tar; then
+    echo -ne "You must install \`tar\`\n" >&2
 
     return -1
   fi
 
   pushd "${ROOT_DIR}" || return $?
-  unzip -o "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" || return $?
+  tar -xzf "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" || return $?
   popd
 }
 
