@@ -1,12 +1,12 @@
 const rp = require("request-promise");
 
 before(function() {
-  return new Promise((resolve, reject) => {
-    const start = Date.now();
-    const timeout = 5000;
-    // add 5% so the below function will finish first
-    this.timeout = timeout * 0.05;
+  const start = Date.now();
+  const timeout = 5000;
+  // add 5% so the below function will finish first
+  this.timeout = timeout * 0.05;
 
+  return new Promise((resolve, reject) => {
     const retry = () => {
       return rp({
         uri: `http://localhost:${process.env.WIREMOCK_PORT}/__admin/mappings`,
