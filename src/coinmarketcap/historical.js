@@ -13,18 +13,19 @@ const _getBaseUri = ({ proto, domain, port }) => {
   return protoDomain + (omitPort ? "" : `:${strPort}`);
 };
 
-const _queryCreator = ({ rp, _getBaseUri }) => ({ proto, domain, port }) => ({
+const _queryCreator = ({ rp, _getBaseUri }) => baseUriComponents => ({
   ticker,
   year,
-}) =>
-  rp({
+}) => {
+  const uri = `${_getBaseUri(
+    baseUriComponents
+  )}/currencies/${ticker}/historical-data/?start=${year}0101&end=${year}1231`;
+
+  return rp({
     resolveWithFullResponse: true,
-    uri: `${_getBaseUri(
-      proto,
-      domain,
-      port
-    )}/currencies/${ticker}/historical-data/?start=${year}0101&end=${year}1231`,
+    uri,
   });
+};
 
 const query = _queryCreator({
   rp: require("request-promise"),

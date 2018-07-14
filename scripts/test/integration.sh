@@ -16,10 +16,12 @@ if [ ! -d "test/wiremock/__files" ]; then
   "${SCRIPTS_DIR}/get_and_unpack_wiremock_tgz.sh"
 fi
 
-dockerComposeUp
+[ -f /.dockerenv ] || dockerComposeUp
+
+export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
 
 yarn mocha \
   --reporter-options reportDir="${REPORTS_DIR}/integration" \
   "${INTEGRATION_DIR}"
 
-dockerComposeDown
+[ -f /.dockerenv ] || dockerComposeDown

@@ -18,7 +18,9 @@ if [ ! -d "test/wiremock/__files" ]; then
   "${SCRIPTS_DIR}/get_and_unpack_wiremock_tgz.sh"
 fi
 
-dockerComposeUp
+[ -f /.dockerenv ] || dockerComposeUp
+
+export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
 
 yarn mocha \
   --recursive \
@@ -30,4 +32,4 @@ yarn -s mochawesome_to_markdown \
   --mochawesome "${MOCHAWESOME_JSON}" \
   | tee -a ${MARKDOWN_FILE}
 
-dockerComposeDown
+[ -f /.dockerenv ] || dockerComposeDown

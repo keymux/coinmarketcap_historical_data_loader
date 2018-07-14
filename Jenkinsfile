@@ -59,6 +59,10 @@ node("docker") {
       nvm("scripts/get_and_unpack_wiremock_tgz.sh")
     }
 
+    nvm("scripts/dockerUp.sh")
+
+    def wiremockPort = sh("get_wiremock_port.sh", returnStdout: true)
+
     def dockerRunTest = { stageName, testCommand ->
       stage(stageName) {
         def fn = { version ->
@@ -66,6 +70,7 @@ node("docker") {
             "-v ${env.WORKSPACE}:${env.WORKSPACE}:ro",
             "${dockerArgs}",
             "--rm",
+            "-p ${wiremockPort}:8080",
             "${dockerImageAndTag}",
             "${testCommand}",
           ].join(" ")
@@ -78,11 +83,14 @@ node("docker") {
     }
 
     dockerRunTest("Unit tests", "yarn test:unit")
+
     dockerRunTest("Integration tests", "yarn test:integration")
 
     stage("Reporting") {
       parallel(mapToSteps({ r -> nvm("yarn report:${r}") }, packageJsonReports))
     }
+
+    nvm("scripts/dockerDown.sh")
 
     stage("Post report") {
       nvm("yarn report:aggregate")

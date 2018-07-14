@@ -14,7 +14,7 @@ describe("historical.js", () => {
         {
           proto: "http",
           domain: "localhost",
-          port: "8080",
+          port: process.env.WIREMOCK_PORT,
         },
       ].forEach(input => {
         const query = _queryCreator({ rp, _getBaseUri })(input);
@@ -27,13 +27,13 @@ describe("historical.js", () => {
           [
             {
               ticker: "bitcoin",
-              domain: "2017",
+              year: "2017",
             },
           ].forEach(input => {
             describe("given a ticker and a year", () => {
               it("should retrieve a set of ticker data", () => {
                 return query(input).then(actual => {
-                  expect(actual.length).to.be.at.least(10000);
+                  expect(actual.body.length).to.be.at.least(10000);
                 });
               });
             });
