@@ -13,7 +13,7 @@ const _getBaseUri = ({ proto, domain, port }) => {
   return protoDomain + (omitPort ? "" : `:${strPort}`);
 };
 
-const _queryCreator = ({ rp, getBaseUri }) => ({ proto, domain, port }) => ({
+const _queryCreator = ({ rp, _getBaseUri }) => ({ proto, domain, port }) => ({
   ticker,
   year,
 }) =>
@@ -26,7 +26,10 @@ const _queryCreator = ({ rp, getBaseUri }) => ({ proto, domain, port }) => ({
     )}/currencies/${ticker}/historical-data/?start=${year}0101&end=${year}1231`,
   });
 
-const query = _queryCreator(require("request-promise"))({
+const query = _queryCreator({
+  rp: require("request-promise"),
+  _getBaseUri,
+})({
   proto: "https",
   domain: "coinmarketcap.com",
 });

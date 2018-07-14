@@ -88,7 +88,7 @@ describe("historical.js", () => {
     const testFixture = ({ description, expected, input }) => {
       const rp = stub().resolves(expected);
 
-      const inputWithRp = Object.assign({}, input, { rp });
+      const inputWithRp = Object.assign({}, input, { rp, _getBaseUri });
 
       return _queryCreator(inputWithRp)(inputWithRp)(inputWithRp).then(
         actual => {
