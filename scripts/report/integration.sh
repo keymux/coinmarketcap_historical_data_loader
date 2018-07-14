@@ -12,6 +12,10 @@ REPORTS_DIR="${ROOT_DIR}/reports"
 MOCHAWESOME_JSON="${REPORTS_DIR}/integration/mochawesome.json"
 MARKDOWN_FILE="${REPORTS_DIR}/integration.md"
 
+. "${SCRIPTS_DIR}/lib.sh"
+
+dockerComposeUp
+
 yarn mocha \
   --recursive \
   --reporter=mochawesome \
@@ -21,3 +25,5 @@ yarn mocha \
 yarn -s mochawesome_to_markdown \
   --mochawesome "${MOCHAWESOME_JSON}" \
   | tee -a ${MARKDOWN_FILE}
+
+dockerComposeDown

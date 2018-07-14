@@ -4,6 +4,9 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
 
+WIREMOCK_ZIP_URI="https://nc.0ti.me/index.php/s/9xN24GjS9dkCSds/download"
+WIREMOCK_ZIP_FILE="wiremock.zip"
+
 whichOrExit() {
   if ! which $1 > /dev/null 2>&1; then
     echo "$1 must be installed" >&2
@@ -104,6 +107,53 @@ open() {
       echo "Not sure how to handle this os (${uname})" >&2
       ;;
   esac
+}
+
+createWiremockZip() {
+  zip -x "*.swp" -r "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" "test/wiremock"
+}
+
+getWiremockMappingsAndFiles() {
+
+  if ! which zip; then
+    echo -ne "You must install \`zip\`\n" >&2
+  elif which curl; then
+    curl -o "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" "${WIREMOCK_ZIP_URI}"
+
+    return $?
+  elif which wget; then
+    wget -O "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" "${WIREMOCK_ZIP_URI}"
+
+    return $?
+  else
+    echo -ne "You must install either \`curl\` or \`wget\`\n" >&2
+  fi
+
+  return -1
+}
+
+unpackWiremockMappingsAndFiles() {
+  if ! which unzip; then
+    echo -ne "You must install \`unzip\`\n" >&2
+
+    return -1
+  fi
+
+  pushd "${ROOT_DIR}" || return $?
+  unzip -o "${ROOT_DIR}/${WIREMOCK_ZIP_FILE}" || return $?
+  popd
+}
+
+dockerComposeUp() {
+  getWiremockMappingsAndFiles || return $?
+
+  unpackWiremockMappingsAndFiles || return $?
+
+  docker-compose up -d --force-recreate
+}
+
+dockerComposeDown() {
+  docker-compose rm -fs
 }
 
 whichOrExit yarn

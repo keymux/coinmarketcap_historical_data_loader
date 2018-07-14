@@ -10,6 +10,12 @@ ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
 INTEGRATION_DIR="${ROOT_DIR}/test/integration"
 REPORTS_DIR="/tmp/reports"
 
+. "${SCRIPTS_DIR}/lib.sh"
+
+dockerComposeUp
+
 yarn mocha \
   --reporter-options reportDir="${REPORTS_DIR}/integration" \
   "${INTEGRATION_DIR}"
+
+dockerComposeDown

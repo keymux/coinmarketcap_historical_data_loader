@@ -1,0 +1,9 @@
+version: "3.5"
+services:
+  wiremock:
+    image: rodolpheche/wiremock:2.18.0-alpine
+    ports:
+    - 8080:8080
+    volumes:
+    - "${PWD}/test/wiremock/mappings:/home/wiremock/mappings:rw"
+    - "${PWD}/test/wiremock/__files:/home/wiremock/__files:rw"
