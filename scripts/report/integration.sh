@@ -20,7 +20,7 @@ fi
 
 [ -f /.dockerenv ] || dockerComposeUp
 
-export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
+[ -f /.dockerenv ] || export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
 
 yarn mocha \
   --recursive \
