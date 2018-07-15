@@ -12,4 +12,4 @@ services:
     ports:
     - 0:3306
     env_file:
-    - mariadb.env
+    - ".env.d/mariadb.env"
