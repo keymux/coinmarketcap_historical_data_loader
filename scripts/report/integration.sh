@@ -20,10 +20,6 @@ fi
 
 dockerComposeUp
 
-export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
-docker ps -a
-docker-compose ps
-
 yarn mocha \
   --recursive \
   --reporter=mochawesome \

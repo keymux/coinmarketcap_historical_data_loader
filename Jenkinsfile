@@ -64,6 +64,7 @@ node("docker") {
     nvm("scripts/dockerUp.sh")
 
     def wiremockPort = sh(script: "scripts/get_wiremock_port.sh", returnStdout: true).trim()
+    def mariadbPort = sh(script: "scripts/get_mariadb_port.sh", returnStdout: true).trim()
 
     def dockerRunTest = { stageName, testCommand ->
       stage(stageName) {
@@ -73,6 +74,7 @@ node("docker") {
             "${dockerArgs}",
             "--rm",
             "-e WIREMOCK_PORT=${wiremockPort}",
+            "-e MARIADB_PORT=${mariadbPort}",
             "${dockerImageAndTag}",
             "${testCommand}",
           ].join(" ")

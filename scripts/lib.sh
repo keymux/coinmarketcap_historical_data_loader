@@ -150,6 +150,9 @@ dockerComposeUp() {
   unpackWiremockMappingsAndFiles || return $?
 
   docker-compose up -d --force-recreate
+
+  export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
+  export MARIADB_PORT="$("${SCRIPTS_DIR}/get_mariadb_port.sh")"
 }
 
 dockerComposeDown() {

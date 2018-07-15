@@ -18,8 +18,6 @@ fi
 
 if [ ! -e /.dockerenv ]; then
   dockerComposeUp
-
-  export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
 fi
 
 yarn mocha \
