@@ -145,6 +145,10 @@ unpackWiremockMappingsAndFiles() {
 }
 
 dockerComposeUp() {
+  if [ ! -f "mariadb.env" ]; then
+    "${SCRIPTS_DIR}/generate_mariadb_env.sh"
+  fi
+
   getWiremockMappingsAndFiles || return $?
 
   unpackWiremockMappingsAndFiles || return $?
@@ -157,6 +161,10 @@ dockerComposeUp() {
 
 dockerComposeDown() {
   docker-compose rm -fs
+}
+
+randomString() {
+  cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-32} | head -n 1
 }
 
 whichOrExit yarn
