@@ -8,3 +8,5 @@
 *.swp
 *.tgz
 *.zip
+**/test/wiremock/__files/**
+**/test/wiremock/mappings/**
