@@ -13,8 +13,6 @@ before(function() {
         uri: `http://localhost:${process.env.WIREMOCK_PORT}/__admin/mappings`,
       })
         .then(res => {
-          console.error("success");
-
           resolve(res);
         })
         .catch(err => {

@@ -13,6 +13,7 @@
     "submit:comment": "scripts/submit/comment.sh",
     "test:coverage": "scripts/test/coverage.sh",
     "test:integration": "scripts/test/integration.sh",
+    "test:lint": "scripts/test/lint.sh",
     "test:unit": "scripts/test/unit.sh"
   },
   "reports": [
@@ -26,12 +27,16 @@
     "@keymux/mochawesome_to_markdown": "^0.1.0",
     "@keymux/promisr": "^0.1.1",
     "chai": "^4.1.2",
+    "eslint": "4.18.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "make-promises-safe": "^1.1.0",
     "markdown-preview": "^0.4.3",
     "mocha": "^5.2.0",
     "mochawesome": "^3.0.2",
     "nodemon": "^1.18.2",
     "nyc": "^12.0.2",
+    "prettier": "^1.13.7",
     "sinon": "^6.1.0",
     "winston": "^3.0.0"
   },

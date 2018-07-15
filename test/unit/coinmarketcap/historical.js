@@ -89,9 +89,8 @@ describe("historical.js", () => {
       const rp = stub().resolves(expected);
 
       const inputWithRp = Object.assign({}, input, { rp, _getBaseUri });
-
-      return _queryCreator(inputWithRp)(inputWithRp)(inputWithRp).then(
-        actual => {
+      it(description, () =>
+        _queryCreator(inputWithRp)(inputWithRp)(inputWithRp).then(actual => {
           expect(actual).to.equal(expected);
           expect(rp.calledOnce).to.be.true;
           expect(rp.args[0].length).to.equal(1);
@@ -100,7 +99,7 @@ describe("historical.js", () => {
 
           expect(arg).to.have.property("resolveWithFullResponse");
           expect(arg).to.have.property("uri");
-        }
+        })
       );
     };
 

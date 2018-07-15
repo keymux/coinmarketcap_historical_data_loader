@@ -88,6 +88,10 @@ node("docker") {
 
     dockerRunTest("Integration tests", "yarn test:integration")
 
+    stage("Linting") {
+      nvm("yarn test:lint")
+    }
+
     stage("Reporting") {
       parallel(mapToSteps({ r -> nvm("yarn report:${r}") }, packageJsonReports))
     }

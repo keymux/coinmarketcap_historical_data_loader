@@ -5,8 +5,6 @@ const { zip } = require("../util/arrays/zip");
 const _parseHtmlTable = body => {
   const $ = cheerio.load(body);
 
-  const h1 = $("table thead tr th");
-
   const keys = $("table thead tr th")
     .toArray()
     .map(x => $(x).text());

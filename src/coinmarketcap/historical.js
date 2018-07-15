@@ -1,5 +1,3 @@
-const { inspect } = require("util");
-
 const _getBaseUri = ({ proto, domain, port }) => {
   // Ensure port is a string
   const strPort = `${port}`;
