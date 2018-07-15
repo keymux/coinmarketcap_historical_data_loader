@@ -4,9 +4,12 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
 ENV_DIR="${ROOT_DIR}/.env.d"
+CACHE_DIR="${ROOT_DIR}/.cache"
+
+mkdir -p "${CACHE_DIR}"
 
 WIREMOCK_TGZ_URI="https://nc.0ti.me/index.php/s/n7RN8j8ZRmZjZWJ/download"
-WIREMOCK_TGZ_FILE="wiremock.tgz"
+WIREMOCK_TGZ_FILE="${CACHE_DIR}/wiremock.tgz"
 
 MARIADB_ENV="${ENV_DIR}/mariadb.env"
 
@@ -113,19 +116,18 @@ open() {
 }
 
 createWiremockTgz() {
-  tar --exclude="*.swp" -czf "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" "test/wiremock"
+  tar --exclude="*.swp" -czf "${WIREMOCK_TGZ_FILE}" "test/wiremock"
 }
 
 getWiremockMappingsAndFiles() {
-
   if ! which tar; then
     echo -ne "You must install \`tar\`\n" >&2
   elif which curl; then
-    curl -o "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" "${WIREMOCK_TGZ_URI}"
+    curl -o "${WIREMOCK_TGZ_FILE}" "${WIREMOCK_TGZ_URI}"
 
     return $?
   elif which wget; then
-    wget -O "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" "${WIREMOCK_TGZ_URI}"
+    wget -O "${WIREMOCK_TGZ_FILE}" "${WIREMOCK_TGZ_URI}"
 
     return $?
   else
@@ -143,7 +145,7 @@ unpackWiremockMappingsAndFiles() {
   fi
 
   pushd "${ROOT_DIR}" || return $?
-  tar -xzf "${ROOT_DIR}/${WIREMOCK_TGZ_FILE}" || return $?
+  tar -xzf "${WIREMOCK_TGZ_FILE}" || return $?
   popd
 }
 

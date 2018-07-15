@@ -11,3 +11,4 @@
 **/test/wiremock/__files/**
 **/test/wiremock/mappings/**
 **/*.env
+**/.cache/**
