@@ -3,9 +3,12 @@
 SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
+ENV_DIR="${ROOT_DIR}/.env.d"
 
 WIREMOCK_TGZ_URI="https://nc.0ti.me/index.php/s/n7RN8j8ZRmZjZWJ/download"
 WIREMOCK_TGZ_FILE="wiremock.tgz"
+
+MARIADB_ENV="${ENV_DIR}/mariadb.env"
 
 whichOrExit() {
   if ! which $1 > /dev/null 2>&1; then
@@ -145,9 +148,11 @@ unpackWiremockMappingsAndFiles() {
 }
 
 dockerComposeUp() {
-  if [ ! -f "mariadb.env" ]; then
+  if [ ! -f "${ROOT_DIR}/mariadb.env" ]; then
     "${SCRIPTS_DIR}/generate_mariadb_env.sh"
   fi
+
+  . "${MARIADB_ENV}"
 
   getWiremockMappingsAndFiles || return $?
 
