@@ -89,9 +89,7 @@ node("docker") {
     dockerRunTest("Integration tests", "yarn test:integration")
 
     stage("Linting") {
-      step ("Linter") {
-        nvm("yarn test:lint")
-      }
+      nvm("yarn test:lint")
     }
 
     stage("Reporting") {
