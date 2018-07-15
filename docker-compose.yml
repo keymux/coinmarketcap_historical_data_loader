@@ -7,3 +7,9 @@ services:
     volumes:
     - "${PWD}/test/wiremock/mappings:/home/wiremock/mappings:rw"
     - "${PWD}/test/wiremock/__files:/home/wiremock/__files:rw"
+  mariadb:
+    image: mariadb
+    ports:
+    - 0:3306
+    env_file:
+    - mysql.env
