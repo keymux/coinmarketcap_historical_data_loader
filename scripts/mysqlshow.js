@@ -16,8 +16,11 @@ const opts = {
   port: MARIADB_PORT || MYSQL_PORT,
 };
 
+// eslint-disable-next-line no-console
 console.error("\n\n====================================");
+// eslint-disable-next-line no-console
 console.error(opts);
+// eslint-disable-next-line no-console
 console.error("====================================\n\n");
 
 const mysqlc = mysql.createConnection(
@@ -31,8 +34,9 @@ const mysqlc = mysql.createConnection(
 
 mysqlc.connect();
 
-mysqlc.query("SHOW TABLES", (error, results, fields) => {
+mysqlc.query("SHOW TABLES", (error, results) => {
   if (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
 
     mysqlc.end();
@@ -40,6 +44,7 @@ mysqlc.query("SHOW TABLES", (error, results, fields) => {
     process.exit(-1);
   }
 
+  // eslint-disable-next-line no-console
   console.error(results);
 
   mysqlc.end();

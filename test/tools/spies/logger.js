@@ -28,6 +28,7 @@ const getSpyLogger = () =>
     }
   );
 
+// eslint-disable-next-line no-console
 const printSpiedLogs = logger => console.error(logger.orderedLogs);
 
 module.exports = {
