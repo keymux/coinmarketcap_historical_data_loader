@@ -20,10 +20,10 @@ fi
 
 dockerComposeUp
 
+export $(cat "${MARIADB_ENV}" | xargs)
+
 yarn mocha \
-  --recursive \
-  --reporter=mochawesome \
-  --reporter-options "reportDir=${REPORTS_DIR}/integration" \
+  --opts "${ROOT_DIR}/test/mocha.integration.opts" \
   "${INTEGRATION_DIR}" \
   && \
 yarn -s mochawesome_to_markdown \
@@ -31,6 +31,6 @@ yarn -s mochawesome_to_markdown \
   | tee -a ${MARKDOWN_FILE}
 CODE=$?
 
-dockerComposeDown
+#dockerComposeDown
 
 exit ${CODE}
