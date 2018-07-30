@@ -154,7 +154,7 @@ dockerComposeUp() {
     "${SCRIPTS_DIR}/generate_mariadb_env.sh"
   fi
 
-  . "${MARIADB_ENV}"
+  export $(cat "${MARIADB_ENV}" | xargs)
 
   getWiremockMappingsAndFiles || return $?
 
@@ -167,7 +167,7 @@ dockerComposeUp() {
 
   echo -ne "Waiting for mysql to be ready" >&2
 
-  until "${SCRIPTS_DIR}/mysqlshow.sh" > /dev/null 2>&1; do
+  until node "${SCRIPTS_DIR}/mysqlshow.js" > /dev/null ; do
     echo -ne "." >&2
 
     sleep 1
