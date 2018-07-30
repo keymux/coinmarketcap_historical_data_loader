@@ -144,13 +144,13 @@ unpackWiremockMappingsAndFiles() {
     return -1
   fi
 
-  pushd "${ROOT_DIR}" || return $?
+  pushd "${ROOT_DIR}" 2>&1 >/dev/null || return $?
   tar -xzf "${WIREMOCK_TGZ_FILE}" || return $?
-  popd
+  popd 2>&1 >/dev/null
 }
 
 dockerComposeUp() {
-  if [ ! -f "${ROOT_DIR}/mariadb.env" ]; then
+  if [ ! -f "${MARIADB_ENV}" ]; then
     "${SCRIPTS_DIR}/generate_mariadb_env.sh"
   fi
 
@@ -164,6 +164,16 @@ dockerComposeUp() {
 
   export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
   export MARIADB_PORT="$("${SCRIPTS_DIR}/get_mariadb_port.sh")"
+
+  echo -ne "Waiting for mysql to be ready" >&2
+
+  until "${SCRIPTS_DIR}/mysqlshow.sh" > /dev/null 2>&1; do
+    echo -ne "." >&2
+
+    sleep 1
+  done
+
+  echo
 }
 
 dockerComposeDown() {
