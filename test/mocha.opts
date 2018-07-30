@@ -1,5 +1,2 @@
 --recursive
---reporter=mochawesome
---reporter-options quiet=true
---reporter-options reportDir=reports/unit
 --require=make-promises-safe

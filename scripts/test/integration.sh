@@ -24,7 +24,6 @@ else
 fi
 
 yarn mocha \
-  --opts "${ROOT_DIR}/test/mocha.integration.opts" \
   "${INTEGRATION_DIR}"
 CODE=$?
 

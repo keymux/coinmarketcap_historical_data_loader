@@ -13,6 +13,7 @@ MOCHAWESOME_JSON="${REPORTS_DIR}/unit/mochawesome.json"
 MARKDOWN_FILE="${REPORTS_DIR}/unit.md"
 
 yarn mocha \
+  --opts "${ROOT_DIR}/test/mocha.report.opts" \
   "${UNIT_DIR}" \
   && \
 yarn -s mochawesome_to_markdown \

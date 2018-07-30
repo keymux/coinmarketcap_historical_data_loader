@@ -23,6 +23,7 @@ yarn nyc \
   --reporter=text \
   --report-dir="${REPORTS_DIR}/unit" \
   mocha \
+    --opts "${ROOT_DIR}/test/mocha.report.opts" \
     "${UNIT_DIR}" \
   && \
   nyc-markdown \

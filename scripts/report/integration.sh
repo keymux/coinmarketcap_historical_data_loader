@@ -21,7 +21,7 @@ fi
 dockerComposeRestart
 
 yarn mocha \
-  --opts "${ROOT_DIR}/test/mocha.integration.opts" \
+  --opts "${ROOT_DIR}/test/mocha.report.integration.opts" \
   "${INTEGRATION_DIR}" \
   && \
 yarn -s mochawesome_to_markdown \
