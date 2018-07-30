@@ -3,9 +3,6 @@
  * to work with hostorical data from coin market cap
  */
 
-const QUADRILLION_6_DECIMAL = "DECIMAL(21, 6)"; // Quadrillion
-const QUINTILLION_0_DECIMAL = "DECIMAL(18, 0)"; // Quintillion
-
 /**
  * Provides a configurable map for creating the table and interacting with it
  *
@@ -18,8 +15,6 @@ const QUINTILLION_0_DECIMAL = "DECIMAL(18, 0)"; // Quintillion
 const getModel = overrides =>
   Object.assign(
     {
-      description: "Date and Price Information lacking time detail",
-      name: "cmc_historical_data_point",
       columns: {
         id: {
           autoIncrement: true,
@@ -29,10 +24,6 @@ const getModel = overrides =>
           unsigned: true,
         },
         cryptocurrencyId: {
-          foreignKey: {
-            table: "cryptocurrencies",
-            fields: "id",
-          },
           name: "cryptocurrencyId",
           type: "INT",
           unsigned: true,
@@ -44,35 +35,43 @@ const getModel = overrides =>
         },
         open: {
           name: "open",
-          type: QUADRILLION_6_DECIMAL,
+          type: "DOUBLE",
           nullable: false,
         },
         high: {
           name: "high",
-          type: QUADRILLION_6_DECIMAL,
+          type: "DOUBLE",
           nullable: false,
         },
         low: {
           name: "low",
-          type: QUADRILLION_6_DECIMAL,
+          type: "DOUBLE",
           nullable: false,
         },
         close: {
           name: "close",
-          type: QUADRILLION_6_DECIMAL,
+          type: "DOUBLE",
           nullable: false,
         },
         volume: {
           name: "volume",
-          type: QUINTILLION_0_DECIMAL,
+          type: "DOUBLE",
           nullable: false,
         },
         market_capitalization: {
           name: "market_capitalization",
-          type: QUINTILLION_0_DECIMAL,
+          type: "DOUBLE",
           nullable: false,
         },
       },
+      description: "Date and Price Information lacking time detail",
+      foreignKeys: {
+        foreignFields: ["id"],
+        foreignTable: "cryptocurrencies",
+        localFields: "cryptocurrencyId",
+        name: "cmc_historical_data_point_cryptocurrency_id",
+      },
+      name: "cmc_historical_data_point",
     },
     overrides
   );
