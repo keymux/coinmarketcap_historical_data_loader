@@ -65,12 +65,14 @@ const getModel = overrides =>
         },
       },
       description: "Date and Price Information lacking time detail",
-      foreignKeys: {
-        foreignFields: ["id"],
-        foreignTable: "cryptocurrencies",
-        localFields: "cryptocurrencyId",
-        name: "cmc_historical_data_point_cryptocurrency_id",
-      },
+      foreignKeys: [
+        {
+          foreignFields: ["id"],
+          foreignTable: "cryptocurrencies",
+          localFields: ["cryptocurrencyId"],
+          name: "cmc_historical_data_point_cryptocurrency_id",
+        },
+      ],
       name: "cmc_historical_data_point",
     },
     overrides
