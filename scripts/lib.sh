@@ -160,6 +160,15 @@ dockerComposeUp() {
 
   unpackWiremockMappingsAndFiles || return $?
 
+  if [[ "${MYSQL_DATABASE}" == "" ]] ||
+    [[ "${MYSQL_PASSWORD}" == "" ]] ||
+    [[ "${MYSQL_USER}" == "" ]] ||
+    [[ "${MYSQL_ROOT_PASSWORD}" == "" ]]; then
+    echo "One of MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_USER, or MYSQL_ROOT_PASSWORD was not set" >&2
+
+    return -1
+  fi
+
   docker-compose up -d --force-recreate
 
   export WIREMOCK_PORT="$("${SCRIPTS_DIR}/get_wiremock_port.sh")"
@@ -187,7 +196,7 @@ dockerComposeUp() {
 }
 
 dockerComposeDown() {
-  docker-compose rm -fs
+  docker-compose rm -fsv
 }
 
 randomString() {
