@@ -18,8 +18,8 @@ DC_CODE=$?
 
 if [ ${DC_CODE} -ne 0 ]; then
   # Introspection
-  docker logs
-  docker ps -a
+  docker-compose logs
+  docker-compose ps
 
   exit ${DC_CODE}
 fi
