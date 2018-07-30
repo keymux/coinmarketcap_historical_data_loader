@@ -1,7 +1,5 @@
 const mysql = require("mysql");
 
-console.error(process.env);
-
 const {
   MARIADB_PORT,
   MYSQL_HOSTNAME,
