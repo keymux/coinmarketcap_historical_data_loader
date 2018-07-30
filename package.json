@@ -5,10 +5,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "preview:coverage": "scripts/open.sh reports/unit/lcov-report/index.html",
     "report:_all": "scripts/report/_all.sh",
     "report:aggregate": "scripts/report/aggregate.sh",
     "report:coverage": "scripts/report/coverage.sh",
     "report:integration": "scripts/report/integration.sh",
+    "report:lint": "scripts/report/lint.sh",
     "report:unit": "scripts/report/unit.sh",
     "submit:comment": "scripts/submit/comment.sh",
     "test:coverage": "scripts/test/coverage.sh",
@@ -37,10 +39,13 @@
     "nodemon": "^1.18.2",
     "nyc": "^12.0.2",
     "prettier": "^1.13.7",
+    "randexp": "^0.4.9",
     "sinon": "^6.1.0",
     "winston": "^3.0.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2"
+    "@keymux/yadal": "^0.1.0",
+    "cheerio": "^1.0.0-rc.2",
+    "mysql": "^2.15.0"
   }
 }
