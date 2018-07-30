@@ -13,9 +13,6 @@ MOCHAWESOME_JSON="${REPORTS_DIR}/unit/mochawesome.json"
 MARKDOWN_FILE="${REPORTS_DIR}/unit.md"
 
 yarn mocha \
-  --recursive \
-  --reporter=mochawesome \
-  --reporter-options "reportDir=${REPORTS_DIR}/unit" \
   "${UNIT_DIR}" \
   && \
 yarn -s mochawesome_to_markdown \
