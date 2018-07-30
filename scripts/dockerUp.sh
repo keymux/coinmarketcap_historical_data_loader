@@ -13,7 +13,8 @@ MARKDOWN_FILE="${REPORTS_DIR}/integration.md"
 
 . "${SCRIPTS_DIR}/lib.sh"
 
-DC_CODE=dockerComposeUp
+dockerComposeUp
+DC_CODE=$?
 
 if [ ${DC_CODE} -ne 0 ]; then
   # Introspection
