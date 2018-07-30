@@ -20,8 +20,10 @@ if [ ! -e /.dockerenv ]; then
   dockerComposeUp
 fi
 
+export $(cat "${MARIADB_ENV}" | xargs)
+
 yarn mocha \
-  --reporter-options reportDir="${REPORTS_DIR}/integration" \
+  --opts "${ROOT_DIR}/test/mocha.integration.opts" \
   "${INTEGRATION_DIR}"
 CODE=$?
 
