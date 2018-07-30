@@ -19,7 +19,6 @@ yarn nyc \
   --reporter=lcov \
   --reporter=json-summary \
   --reporter=text \
-  --report-dir="${REPORTS_DIR}/coverage" \
+  --report-dir="${REPORTS_DIR}/unit" \
   mocha \
-    --reporter-options reportDir="${REPORTS_DIR}/coverage" \
     "${UNIT_DIR}"
