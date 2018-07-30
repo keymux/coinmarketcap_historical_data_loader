@@ -12,4 +12,5 @@ REPORTS_DIR="/tmp/reports"
 
 yarn mocha \
   --reporter-options reportDir="${REPORTS_DIR}/unit" \
+  --reporter-options quiet=true \
   "${UNIT_DIR}"
