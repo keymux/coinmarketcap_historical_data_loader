@@ -12,12 +12,22 @@ const {
 const opts = {
   host: MYSQL_HOSTNAME,
   user: MYSQL_USER,
-  password: MYSQL_PASSWORD,
   database: MYSQL_DATABASE,
   port: MARIADB_PORT || MYSQL_PORT,
 };
 
-const mysqlc = mysql.createConnection(opts);
+console.error("\n\n====================================");
+console.error(opts);
+console.error("====================================\n\n");
+
+const mysqlc = mysql.createConnection(
+  Object.assign(
+    {
+      password: MYSQL_PASSWORD,
+    },
+    opts
+  )
+);
 
 mysqlc.connect();
 

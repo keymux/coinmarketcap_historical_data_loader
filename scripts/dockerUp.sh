@@ -13,4 +13,12 @@ MARKDOWN_FILE="${REPORTS_DIR}/integration.md"
 
 . "${SCRIPTS_DIR}/lib.sh"
 
-dockerComposeUp
+DC_CODE=dockerComposeUp
+
+if [ ${DC_CODE} -ne 0 ]; then
+  # Introspection
+  docker logs
+  docker ps -a
+
+  exit ${DC_CODE}
+fi

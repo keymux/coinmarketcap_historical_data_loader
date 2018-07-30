@@ -8,8 +8,8 @@ services:
     - "${PWD}/test/wiremock/mappings:/home/wiremock/mappings:rw"
     - "${PWD}/test/wiremock/__files:/home/wiremock/__files:rw"
   mariadb:
+    env_file:
+    - ".env.d/mariadb.env"
     image: mariadb
     ports:
     - 0:3306
-    env_file:
-    - ".env.d/mariadb.env"
