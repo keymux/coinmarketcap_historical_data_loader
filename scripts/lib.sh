@@ -178,7 +178,7 @@ dockerComposeUp() {
 
   local retries=0
 
-  until node "${SCRIPTS_DIR}/mysqlshow.js" > /dev/null ; do
+  until node "${SCRIPTS_DIR}/mysqlshow.js" > /dev/null 2>&1; do
     if [ ${retries} -gt 10 ]; then
       echo
 
