@@ -18,9 +18,7 @@ if [ ! -d "test/wiremock/__files" ]; then
   "${SCRIPTS_DIR}/get_and_unpack_wiremock_tgz.sh"
 fi
 
-dockerComposeUp
-
-export $(cat "${MARIADB_ENV}" | xargs)
+dockerComposeRestart
 
 yarn mocha \
   --opts "${ROOT_DIR}/test/mocha.integration.opts" \

@@ -61,7 +61,7 @@ node("docker") {
       nvm("scripts/get_and_unpack_wiremock_tgz.sh")
     }
 
-    nvm("scripts/dockerUp.sh")
+    nvm("scripts/dockerRestart.sh")
 
     def wiremockPort = sh(script: "scripts/get_wiremock_port.sh", returnStdout: true).trim()
     def mariadbPort = sh(script: "scripts/get_mariadb_port.sh", returnStdout: true).trim()

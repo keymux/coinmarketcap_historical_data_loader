@@ -13,6 +13,11 @@ WIREMOCK_TGZ_FILE="${CACHE_DIR}/wiremock.tgz"
 
 MARIADB_ENV="${ENV_DIR}/mariadb.env"
 
+# Create MARIADB_ENV if it does not exist
+if [ ! -f "${MARIADB_ENV}" ]; then
+  "${SCRIPTS_DIR}/generate_mariadb_env.sh" "${ENV_DIR}"
+fi
+
 whichOrExit() {
   if ! which $1 > /dev/null 2>&1; then
     echo "$1 must be installed" >&2
@@ -150,10 +155,6 @@ unpackWiremockMappingsAndFiles() {
 }
 
 dockerComposeUp() {
-  if [ ! -f "${MARIADB_ENV}" ]; then
-    "${SCRIPTS_DIR}/generate_mariadb_env.sh"
-  fi
-
   export $(cat "${MARIADB_ENV}" | xargs)
 
   getWiremockMappingsAndFiles || return $?
@@ -197,6 +198,11 @@ dockerComposeUp() {
 
 dockerComposeDown() {
   docker-compose rm -fsv
+}
+
+dockerComposeRestart() {
+  dockerComposeDown
+  dockerComposeUp
 }
 
 randomString() {

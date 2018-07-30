@@ -17,10 +17,11 @@ if [ ! -d "test/wiremock/__files" ]; then
 fi
 
 if [ ! -e /.dockerenv ]; then
-  dockerComposeUp
+  dockerComposeRestart
+else
+  # Inside a set of docker containers, we need to pull the connection settings
+  export $(cat "${MARIADB_ENV}" | xargs)
 fi
-
-export $(cat "${MARIADB_ENV}" | xargs)
 
 yarn mocha \
   --opts "${ROOT_DIR}/test/mocha.integration.opts" \

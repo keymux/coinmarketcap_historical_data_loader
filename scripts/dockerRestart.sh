@@ -13,5 +13,4 @@ MARKDOWN_FILE="${REPORTS_DIR}/integration.md"
 
 . "${SCRIPTS_DIR}/lib.sh"
 
-dockerComposeDown
-dockerComposeUp
+dockerComposeRestart

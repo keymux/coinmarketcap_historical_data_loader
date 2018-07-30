@@ -4,10 +4,13 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR="$(realpath "${SCRIPTS_DIR}/..")"
 
-. "${SCRIPTS_DIR}/lib.sh"
-
+ENV_DIR=$1
 ENV_IN="${ENV_DIR}/mariadb.env.example"
 ENV_OUT="${ENV_DIR}/mariadb.env"
+
+randomString() {
+  cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-32} | head -n 1
+}
 
 cat "${ENV_IN}" | while read line; do
   while echo $line | grep "CHANGEME" > /dev/null; do
