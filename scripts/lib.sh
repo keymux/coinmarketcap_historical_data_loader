@@ -167,10 +167,20 @@ dockerComposeUp() {
 
   echo -ne "Waiting for mysql to be ready" >&2
 
+  local retries=0
+
   until node "${SCRIPTS_DIR}/mysqlshow.js" > /dev/null ; do
+    if [ ${retries} -gt 10 ]; then
+      echo
+
+      return -1
+    fi
+
     echo -ne "." >&2
 
     sleep 1
+
+    let retries=${retries}+1
   done
 
   echo
